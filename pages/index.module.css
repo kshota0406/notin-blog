@@ -7,11 +7,13 @@
 .logos {
   display: flex;
   align-items: center;
-  padding: 40px 0 20px;
+  padding: 20px;
+  justify-content: center;
+  
 }
 
 .header {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .header p {
@@ -47,7 +49,7 @@
 }
 
 .post {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .postTitle {

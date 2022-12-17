@@ -10,7 +10,7 @@ export default function Home({ posts }) {
   return (
     <div>
       <Head>
-        <title>Notion Next.js blog</title>
+        <title>Shota's blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -18,8 +18,8 @@ export default function Home({ posts }) {
         <header className={styles.header}>
           <div className={styles.logos}>
             <svg
-              height="80"
-              width="80"
+              height="40"
+              width="40"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="12 0.18999999999999906 487.619 510.941"
             >
@@ -31,8 +31,8 @@ export default function Home({ posts }) {
             </svg>
             <span className={styles.plus}>+</span>
             <svg
-              width="133px"
-              height="80px"
+              width="66px"
+              height="40px"
               viewBox="0 0 512 309"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -47,13 +47,13 @@ export default function Home({ posts }) {
               </g>
             </svg>
           </div>
-          <h1>Next.js + Notion API ブログ</h1>
+          <h1>Shota's Blog</h1>
           <p>
-           Notionと連携しているブログです。Notionに書き込めばそのままブログとして投稿できます。
+           Notionと連携しているブログです
           </p>
         </header>
 
-        <h2 className={styles.heading}>All Posts</h2>
+        {/* <h2 className={styles.heading}>All Posts</h2> */}
         <ol className={styles.posts}>
           {posts.map((post) => {
             const date = new Date(post.last_edited_time).toLocaleString(
@@ -65,20 +65,16 @@ export default function Home({ posts }) {
               }
             );
             return (
+              <Link href={`/${post.id}`}>
               <li key={post.id} className={styles.post}>
                 <h3 className={styles.postTitle}>
-                  <Link href={`/${post.id}`}>
-                    <a>
                       <Text text={post.properties.Name.title} />
-                    </a>
-                  </Link>
                 </h3>
-
-                <p className={styles.postDescription}>{date}</p>
-                <Link href={`/${post.id}`}>
-                  <a> Read post →</a>
-                </Link>
+                <span className={styles.postDescription}>{date}</span>
+                <hr />
               </li>
+              </Link>
+
             );
           })}
         </ol>
@@ -87,5 +83,14 @@ export default function Home({ posts }) {
   );
 }
 
-//SSGを追加
+//ISRを追加
+export const getStaticProps = async () => {
+  const database = await getDatabase(databaseId);
 
+  return{
+    props:{
+      posts:database,
+    },
+    revalidate:1,
+  }
+}

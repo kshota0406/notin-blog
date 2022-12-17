@@ -30,3 +30,7 @@ a {
 h1 {
   font-weight: 800;
 }
+
+li:hover {
+  background-color:aliceblue;
+}
